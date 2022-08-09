@@ -1,19 +1,22 @@
-## Tanzu Application Service Hands On Lab for Platform Operators 
+## Tanzu Application Service 
+## Hands On Lab for Platform Operators 
 
 <br/>
 
 # Lab Agenda 
 ### SRE Focus -   
-1. [Introduction to Bosh](#example)
+1. [Introductions](#example)
+   - VMware Team 
+   - Customer
+2. [Lab Setup](#example)
+   - Jumphost / Ops Manager Access (HTTPS and SSH Outbound Connectivity is required)  
+   - CF CLI Installed Locally  
+3. [Introduction to Bosh](#example)
    - What is Bosh?
    - Bosh Concepts (ie. stemcells, CPI, releases, manifests, etc. ) 
-2. [Build and Deploy .NET Framework App (Windows) to TAS from Azure DevOps Pipelines ](#example2)
-   - Demonstrate how TAS can integrate with Azure DevOps Build & Release Pipelines   
-   - Deploy App to TAS using TAS/Cloud Foundry's Azure DevOps Plugin
-   - Bind App to an Azure MySQL Database using TAS's Open Service Broker API 
-3. [Walk through Apps Manager UI ](#example2)
-   - Auto Scaling Apps with Apps Manager    
-   - Review Application logs and metrics using Apps Manager 
+4. [Introduction to Bosh](#example)
+   - What is Bosh?
+   - Bosh Concepts (ie. stemcells, CPI, releases, manifests, etc. ) 
 
 ### Operator Experience 
 1. [Demonstrate Day 2 Operations with Tanzu Application Service ](#example2)
