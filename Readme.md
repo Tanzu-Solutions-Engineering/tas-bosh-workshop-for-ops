@@ -2,10 +2,7 @@
 
 <br/>
 
-
 ### Goal
-
-<br/>
 
 Familiarization with Workshop Lab environment.
 
