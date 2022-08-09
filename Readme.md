@@ -14,14 +14,11 @@
 3. [Introduction to Bosh](#example)
    - What is Bosh?
    - Bosh Concepts (ie. stemcells, CPI, releases, manifests, etc. ) 
-4. [Introduction to Bosh](#example)
-   - What is Bosh?
-   - Bosh Concepts (ie. stemcells, CPI, releases, manifests, etc. ) 
+4. [Hands on Labs](#example)
+   - Unresponsive Agent Lab
+   - Missing Diego Cell Lab
+   - Shutdown Cloud Controller Lab
 
-### Operator Experience 
-1. [Demonstrate Day 2 Operations with Tanzu Application Service ](#example2)
-   - Walk through Zero Downtime patching of Windows & Linux Operating Systems using Ops Manager 
-   - Walk through Zero Downtime upgrades and patching of platform services using Ops Manager
 
 -------
 
