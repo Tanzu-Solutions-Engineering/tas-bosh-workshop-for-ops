@@ -1,3 +1,56 @@
+## Tanzu Application Service Hands On Lab for Platform Operators 
+
+<br/>
+
+# Lab Agenda 
+### Developer Experience 
+1. [Build and Deploy .NET Framework App (Windows) to TAS from Visual Studio](#example)
+   - Deploy App to TAS using TAS's Visual Studio Plugin
+   - Walk through what just happened
+   - Demonstrate how TAS uses Cloud Native Buildpacks to Build Apps   
+2. [Build and Deploy .NET Framework App (Windows) to TAS from Azure DevOps Pipelines ](#example2)
+   - Demonstrate how TAS can integrate with Azure DevOps Build & Release Pipelines   
+   - Deploy App to TAS using TAS/Cloud Foundry's Azure DevOps Plugin
+   - Bind App to an Azure MySQL Database using TAS's Open Service Broker API 
+3. [Walk through Apps Manager UI ](#example2)
+   - Auto Scaling Apps with Apps Manager    
+   - Review Application logs and metrics using Apps Manager 
+
+### Operator Experience 
+1. [Demonstrate Day 2 Operations with Tanzu Application Service ](#example2)
+   - Walk through Zero Downtime patching of Windows & Linux Operating Systems using Ops Manager 
+   - Walk through Zero Downtime upgrades and patching of platform services using Ops Manager
+
+-------
+
+<br/>
+<br/>
+
+
+## High Level Overview 
+
+VMware Tanzu Application Service is an opinionated, application-aware platform that provides a rich set of developer tooling and a prepaved path to production to build and deploy software quickly and securely on any compliant public cloud or on-premises vCenter Data Center.
+
+
+VMware Tanzu Application Service is a modern application platform for enterprises that want to continuously deliver and run microservices or traditional applications across clouds or on-premises.   
+[Read more...](https://tanzu.vmware.com/application-service)
+
+<br/>
+
+
+# A modern runtime for microservices and traditional applications 
+ ![image](https://user-images.githubusercontent.com/73367284/158693192-1b5d6762-f88f-4d8c-ab57-d399344c50f8.png)
+
+<br/>
+
+
+
+<br/>
+
+-----
+
+
+
 ## TAS Lab Setup Instructions
 
 <br/>
