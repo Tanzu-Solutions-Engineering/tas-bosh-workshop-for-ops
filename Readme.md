@@ -3,6 +3,27 @@
 
 <br/>
 
+### High Level Overview 
+
+VMware Tanzu Application Service is an opinionated, application-aware platform that provides a rich set of developer tooling and a prepaved path to production to build and deploy software quickly and securely on any compliant public cloud or on-premises vCenter Data Center.
+
+
+VMware Tanzu Application Service is a modern application platform for enterprises that want to continuously deliver and run microservices or traditional applications across clouds or on-premises.   
+[Read more...](https://tanzu.vmware.com/application-service)
+
+<br/>
+
+
+### A modern runtime for microservices and traditional applications 
+ ![image](https://user-images.githubusercontent.com/73367284/158693192-1b5d6762-f88f-4d8c-ab57-d399344c50f8.png)
+
+<br/>
+
+
+
+<br/>
+
+-----
 # Lab Agenda 
 ### SRE Focus -   
 1. [Introductions](#example)
@@ -26,27 +47,6 @@
 <br/>
 
 
-## High Level Overview 
-
-VMware Tanzu Application Service is an opinionated, application-aware platform that provides a rich set of developer tooling and a prepaved path to production to build and deploy software quickly and securely on any compliant public cloud or on-premises vCenter Data Center.
-
-
-VMware Tanzu Application Service is a modern application platform for enterprises that want to continuously deliver and run microservices or traditional applications across clouds or on-premises.   
-[Read more...](https://tanzu.vmware.com/application-service)
-
-<br/>
-
-
-# A modern runtime for microservices and traditional applications 
- ![image](https://user-images.githubusercontent.com/73367284/158693192-1b5d6762-f88f-4d8c-ab57-d399344c50f8.png)
-
-<br/>
-
-
-
-<br/>
-
------
 
 
 
