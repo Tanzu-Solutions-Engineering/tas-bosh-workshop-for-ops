@@ -3,11 +3,10 @@
 <br/>
 
 # Lab Agenda 
-### Developer Experience 
-1. [Build and Deploy .NET Framework App (Windows) to TAS from Visual Studio](#example)
-   - Deploy App to TAS using TAS's Visual Studio Plugin
-   - Walk through what just happened
-   - Demonstrate how TAS uses Cloud Native Buildpacks to Build Apps   
+### SRE Focus -   
+1. [Introduction to Bosh](#example)
+   - What is Bosh?
+   - Bosh Concepts (ie. stemcells, CPI, releases, manifests, etc. ) 
 2. [Build and Deploy .NET Framework App (Windows) to TAS from Azure DevOps Pipelines ](#example2)
    - Demonstrate how TAS can integrate with Azure DevOps Build & Release Pipelines   
    - Deploy App to TAS using TAS/Cloud Foundry's Azure DevOps Plugin
