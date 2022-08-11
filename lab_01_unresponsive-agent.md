@@ -208,7 +208,7 @@ Succeeded
 
 
 ```
-bosh instances —ps 
+bosh instances --ps 
 ```
 
 
@@ -216,7 +216,7 @@ There's a lot of output here.  Lets try using grep to only show our diego cells.
 
 
 ```
-bosh instances —ps |grep diego
+bosh instances --ps |grep diego
 ```
 
 
