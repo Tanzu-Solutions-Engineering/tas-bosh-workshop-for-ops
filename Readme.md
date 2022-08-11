@@ -133,4 +133,121 @@ The TAS Operations Manager VM can be used as a jump box to access and inspect a 
     ```
 
 <br/>
+
+------------------------------
+
+## Introduction to Bosh 
+
+### What is BOSH?
+
+<br/>
+
+- BOSH is an open source tool for release engineering, deployment, lifecycle management, and monitoring of distributed systems
+
+- BOSH installs and updates software packages on large numbers of VMs over many IaaS providers with the absolute minimum of configuration changes
+
+- BOSH orchestrates initial deployments and ongoing updates that are:  
+  - Predictable, repeatable, and reliable  
+  - Self-healing  
+  - Infrastructure-agnostic  
+
+<br/>
+
+--- 
+
+### What can BOSH Deploy & Manage?
+
+<br/>
+
+- Cloud Foundry Application Runtime  
+![image](https://user-images.githubusercontent.com/73367284/184049824-3b965da9-3603-4c97-aa64-f2ce0c4660b7.png)
+
+
+<br/>
+
+- Kubernetes  
+![image](https://user-images.githubusercontent.com/73367284/184049991-f657d6d5-2b18-491e-a1a0-5152a476946b.png)
+
+<br/>
+
+- Databases  
+![image](https://user-images.githubusercontent.com/73367284/184050042-a9aef593-fbd3-4db9-bc7b-e6931deb5725.png)
+
+<br/>
+
+- Messaging Clusters  
+![image](https://user-images.githubusercontent.com/73367284/184050057-9bd2c995-009e-4077-8312-fee6ab8a82f8.png)
+
+<br/>
+
+- CI/CD Servers  
+![image](https://user-images.githubusercontent.com/73367284/184050124-845581d8-e58a-4b24-b281-13500e36ded0.png)
+
+<br/>
+---
+
+### What IaaS providers does BOSH support?
+
+![image](https://user-images.githubusercontent.com/73367284/184050152-8288e688-7526-49d8-9759-8b4c5fc9a6cd.png)
+  
+<br/>
+
+---
+
+### What Operating Systems Does BOSH Support?
+
+![image](https://user-images.githubusercontent.com/73367284/184050166-401d7740-7d58-4e10-bafb-e149514f2acb.png)
+
+<br/>
+
+---
+
+### The BOSH Project
+
+<br/>
+
+- BOSH was created in 2010 by VMWare 
+- 2013 Pivotal was spun out of VMWare taking BOSH with it
+- Pivotal donated the BOSH project the the Cloud Foundry Foundation 
+- BOSH is a project of the Cloud Foundry Foundation
+- BOSH uses the Apache 2.0 License
+- Actively developed since 2010
+- 244 Contributors 
+- Major contributions from CF Foundation members Pivotal, IBM, SAP, VMWare, Microsoft, Google and others 
+- Resources   
+  - http://bosh.io    
+  - http://ultimateguidetobosh.com/ (Free Book)  
+  - http://mariash.github.io/learn-bosh/ (Quick Tutorial)  
+  - https://cloudfoundry.org/bosh/   
+  - https://github.com/cloudfoundry/bosh   
+
+<br/>
+
+---
+
+### BOSH User Interaction
+
+![image](https://user-images.githubusercontent.com/73367284/184050231-bfc816f5-e6c9-4d0c-b5c8-c29419e05065.png)
+
+- The BOSH director is a collection of components that orchestrates the initial deployments and ongoing updates of bosh managed services 
+- BOSH is a distributed system that can be deployed on multiple VM’s. However it is commonly deployed on a single VM
+- A single BOSH director VM can manage thousands of other VMs 
+- The BOSH CLI is a single go binary that can be installed on a Mac, Windows, or Linux to drive the BOSH director 
+
+<br/>
+---
+
+### Reference: Installing the BOSH CLI
+
+<br/>
+
+Your workshop environment has the BOSH CLI already installed. 
+For future reference on how to install it on your local environment, here is the documentation link for the setup steps:
+- https://www.bosh.io/docs/cli-v2-install/
+
+<br/>
+---
+
+
+
 ---
