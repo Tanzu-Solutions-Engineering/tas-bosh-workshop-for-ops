@@ -49,8 +49,9 @@ Luckily our star developer is on the job and knowns exactly how and what changes
 
 Our developer is ready to kick the tires on a prototype they had been working on in anticipation of this new change.   
 
+<br/>
 
-[Developer] 
+### [Developer] 
 1. Git clone repo with prototype code 
 
 ```
@@ -63,11 +64,20 @@ git clone https://github.com/jrobinsonvm/spring-music.git
 cd spring-music && cf push
 ```
 
-Oh no!  There seems to be an issue with pushing apps today.  That's unusual with this platform.  Let's go ahead and alert our SRE team who more than likely is already working on a resolution and root cause.    
+Oh no!  There seems to be an issue with pushing apps today.  That's unusual with this platform.  
 
 
+3. Before alerting my SRE Team, let's check our app logs to see if there's anything reporting back obvious errors.   
 
-[Site Reliability Engineer]
+```
+cf logs spring-music
+```
+
+Hmm, there seems to be an issue with the availablity of diego cells.  I wonder if we're out of capacity?   Let's go ahead and alert our SRE team who more than likely is already working on a resolution and root cause.    
+
+<br/>
+
+### [Site Reliability Engineer]
 
 I guess we should have paid extra to add additional availablity zones.  :)   So far we're only leveraging one AZ for our development foundations.   
 
