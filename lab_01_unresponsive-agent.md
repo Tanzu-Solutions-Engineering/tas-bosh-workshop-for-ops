@@ -204,6 +204,9 @@ Succeeded
 
 ```
 
+From this view we can clearly see that there's an issue with several of our diego cells. 
+
+
 2. Now try running the bosh instances command along with the process flag to list out any processes that may be failing on the VMs
 
 
@@ -220,3 +223,18 @@ bosh instances --ps |grep diego
 ```
 
 
+
+Notice the failing processes which could be potentially causing or a side effect of a larger issue that causing our VMs to fail.  Let's see if we can restart the failed/stopped processes to at least restore service then develop a root cause so that this issue doesn't happen again.   
+
+3.  Lets now SSH into each of the failing VMs to attempt to restart all required processes.   
+
+```
+bosh ssh <VM-Type>/<VM-GUID>  -d <cf-DeploymentName>
+```
+
+<!-- Once logged in the SRE team member can su to root and then run monit summary to list all non-running processes that are required for TAS 
+- monit summary 
+
+Now the SRE team member can start all monit processes that are stopped or start them individually 
+- monit start all
+ -->
