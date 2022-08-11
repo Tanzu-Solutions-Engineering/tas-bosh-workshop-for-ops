@@ -60,7 +60,7 @@ Familiarization with Workshop Lab environment.
 
 ### Workshop Lab Architecture: Tanzu Application Service
 
-Example Pic
+<img width="914" alt="image" src="https://user-images.githubusercontent.com/73367284/184056387-f61ace4a-48cc-4fa0-91a5-76a715e059c1.png">
 
 <br/>
 
