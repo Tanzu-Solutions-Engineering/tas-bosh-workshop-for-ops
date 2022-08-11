@@ -79,7 +79,7 @@ Hmm, there seems to be an issue with the availablity of diego cells.  I wonder i
 
 ### [Site Reliability Engineer]
 
-I guess we should have paid extra to add additional availablity zones.  :)   So far we're only leveraging one AZ for our development foundations.   
+Hmm, we have far more capacity than what's needed today.   There seems to be an issue with VMs within our East Coast region.   I guess we should have paid extra to add additional availablity zones.  :)   So far we're only leveraging one AZ for our development foundations.   
 
 Nevertheless, we need to get to the root cause of this issue.  Our monitoring tools have been alerting on cf push slowness and now it seems like we're not able to push any apps at all.  Ops Manager is also showing errors related to my Diego Cells which gives me a clue for where to start.  
 
