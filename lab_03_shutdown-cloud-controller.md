@@ -85,5 +85,27 @@ Lets stop the cloud controller process.
 
 - `monit stop cloud_controller_ng`
 
+
+### [Developer]
+
+As the developer, let's check on our applications logs.  This should return an error.
+```
+$ cf logs spring-music
+API endpoint not found at 'https://api.sys.yourhost.cf-app.com'
+FAILED
+```
+
+### [Site Reliability Engineer]
 Now the SRE team member can start all monit processes that are stopped or start them individually 
 - `monit start all`
+</br>or
+- `monit start cloud_controller_ng`
+
+Verify cloud_controller_ng is running
+- `monit summary`
+
+### [Developer]
+
+As the developer, let's check on our applications logs again.
+
+Now the `cf` CLI commands will work since the Cloud Controller is running again.
