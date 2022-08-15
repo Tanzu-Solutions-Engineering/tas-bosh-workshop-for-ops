@@ -31,7 +31,7 @@ VMware Tanzu Application Service is a modern application platform for enterprise
    - Customer
 2. [Lab Setup](#example)
    - Jumphost / Ops Manager Access (HTTPS and SSH Outbound Connectivity is required)  
-   - CF CLI Installed Locally  
+   - CF CLI Installed Locally  (optional)
 3. [Introduction to Bosh](#example)
    - What is Bosh?
    - Bosh Concepts (ie. stemcells, CPI, releases, manifests, etc. ) 
