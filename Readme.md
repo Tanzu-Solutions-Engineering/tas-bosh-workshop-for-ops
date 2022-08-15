@@ -1186,6 +1186,7 @@ SSH into the `cloud_controller` VM
 - `bosh ssh <VM-Type>/<VM-GUID>  -d <cf-DeploymentName>`
 
 3.  Once logged in the SRE team member can run `sudo su` to gain root access and then run `monit summary` to list all processes.   
+
 ```
 $ monit summary
 The Monit daemon 5.2.5 uptime: 17h 22m 
