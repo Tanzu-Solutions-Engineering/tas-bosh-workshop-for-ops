@@ -434,8 +434,8 @@ Errand's stdout and stderr output will be shown by the CLI when it's smaller tha
 
 To save output from an errand VM:
 
-11.  In the errand run script, redirect the output to a log.
-12.  Using the CLI, run `bosh run-errand X` with the `--download-logs` option to download the logs.
+     In the errand run script, redirect the output to a log.
+11.  Using the CLI, run `bosh run-errand X` with the `--download-logs` option to download the logs.
 
     By default, the CLI downloads the logs to your present working directory. Use the `--logs-dir destination_directory` option to change this directory.
 
@@ -449,7 +449,7 @@ bosh run-errand smoke_tests --download-logs --logs-dir ~/smoke-tests-logs.txt
 ---
 ### Monit logs {: #monit-logs }
 
-13.  The Agent uses Monit to start, restart, and stop release job processes as specified by the release jobs. Monit detects errors and outputs often useful information to its log. Use `tail` to examine the `monit.log` on a VM:
+12.  The Agent uses Monit to start, restart, and stop release job processes as specified by the release jobs. Monit detects errors and outputs often useful information to its log. Use `tail` to examine the `monit.log` on a VM:
 
 ```shell
 sudo tail -f -n 200 /var/vcap/monit/monit.log
@@ -458,7 +458,7 @@ sudo tail -f -n 200 /var/vcap/monit/monit.log
 ---
 ### Agent logs {: #agent-logs }
 
-14.  Agent logs contain configuration and runtime information from the Agent running on a VM. Review these logs if the Director sees VM as unresponsive or the Director fails to contact it during its creation.
+13.  Agent logs contain configuration and runtime information from the Agent running on a VM. Review these logs if the Director sees VM as unresponsive or the Director fails to contact it during its creation.
 
 The Agent stores logs in `/var/vcap/bosh/log/` and outputs most recent content to `/var/vcap/bosh/log/current`.
 
