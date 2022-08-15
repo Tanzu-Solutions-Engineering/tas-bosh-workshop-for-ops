@@ -115,3 +115,70 @@ Verify cloud_controller_ng is running
 As the developer, let's check on our applications logs again.
 
 Now the `cf` CLI commands will work since the Cloud Controller is running again.
+
+
+<br/>
+
+### [Site Reliability Engineer]
+
+Now lets assume we have a noisey neighbor situation that's happening on one of our diego cells and instead of scaling resources we would like to identify the problem process or application.   
+
+This raises the question of how do we identify what applications are running on our diego cells.    
+
+
+To do this we will leverage a tool called cfdot "CF Diego Operator Toolkit".   
+
+1.  From the Ops Manager VM SSH to one of your diego cells.   
+2.  Type the cfdot command without sudo'ing to root.
+3.  Run the following command to discovery applications that are running within a selected diego cell.   
+
+```
+cfdot cell-state <guid-of-diego-cell> | jq -r '. | "\ndiego_cell:", .cell_id, "\n", "App-Guids:", .LRPs[].process_guid[0:36]'
+```
+
+Example Output: 
+```
+diego_cell/74ea458a-5c1c-445f-94e5-777b7810998f:~$ cfdot cell-state b8fc2b05-ce4c-4959-be81-944fdcdbd51f | jq -r '. | "\ndiego_cell:", .cell_id, "\n", "App-Guids:", .LRPs[].process_guid[0:36]'
+
+diego_cell:
+b8fc2b05-ce4c-4959-be81-944fdcdbd51f
+
+
+App-Guids:
+1f70ffeb-a927-487e-8349-ade2ceb683d3
+09901e52-1eb6-4f18-ac69-e56f4d04eb9e
+8fe82547-1824-4832-899f-7a6ef56563d2
+70c253af-1b71-45bc-9720-1c7d81016b77
+70c253af-1b71-45bc-9720-1c7d81016b77
+488922d0-1b82-4580-bff7-a5b661d3cfd5
+488922d0-1b82-4580-bff7-a5b661d3cfd5
+1f70ffeb-a927-487e-8349-ade2ceb683d3
+57461897-b221-4a4d-8b0d-c4c2e04eaba4
+488922d0-1b82-4580-bff7-a5b661d3cfd5
+1f70ffeb-a927-487e-8349-ade2ceb683d3
+8fe82547-1824-4832-899f-7a6ef56563d2
+1f70ffeb-a927-487e-8349-ade2ceb683d3
+1f70ffeb-a927-487e-8349-ade2ceb683d3
+1f70ffeb-a927-487e-8349-ade2ceb683d3
+
+```
+
+Its kind of hard to tell what applications are running here with just their GUIDs, which is why we will be making a call to the CF API to determine what the actual names are.  
+
+
+Open a separate terminal to run the following CF CLI command. 
+
+```
+cf curl /v2/apps/<guid-of-app>/stats | grep name | uniq
+```
+
+Example Output: 
+```
+root@cypress-ops-manager:~# cf curl /v2/apps/1f70ffeb-a927-487e-8349-ade2ceb683d3/stats | grep name | uniq
+         "name": "apps-manager-js-green",
+
+```
+
+
+
+
