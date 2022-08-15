@@ -410,5 +410,63 @@ To do this you will need to SSH into the affected VM and switch to the appropria
 For example there are job logs, errand logs, agent logs and monit logs which you are now most familar with.   
 
 
+### Job logs {: #job-logs }
+
+Release jobs on VMs produce logs throughout different lifecycle events. Release authors are strongly encouraged to place release job logs into `/var/vcap/sys/log/<release_job_name>/*.log`, providing a consistent place for the operator to find them.
+
+10.  For example `garden` release job will create two log files.  Let's cat both the standard error and standard out files.   
+
+```
+cat /var/vcap/sys/log/garden/garden.stdout.log
+```
+
+```
+cat /var/vcap/sys/log/garden/garden.stderr.log
+```
 
 
+---
+### Errand logs {: #errand-logs }
+
+Unlike regular job logs BOSH does not automatically redirect errand logs to `/var/vcap/sys/log/*` directory, though we are planning to do so in future.
+
+Errand's stdout and stderr output will be shown by the CLI when it's smaller than 1MB. If you expect errand to generate output larger than 1MB, currently it needs to be redirected to a file (by convention to `/var/vcap/sys/log/<job_name>/stdout.log`) from the errand script and then downloaded, or error will be returned upon errand completion.
+
+To save output from an errand VM:
+
+11.  In the errand run script, redirect the output to a log.
+12.  Using the CLI, run `bosh run-errand X` with the `--download-logs` option to download the logs.
+
+    By default, the CLI downloads the logs to your present working directory. Use the `--logs-dir destination_directory` option to change this directory.
+
+```shell
+bosh run-errand smoke_tests --download-logs --logs-dir ~/smoke-tests-logs.txt
+```
+
+!!! note
+    By default upon errand completion errand VM is deleted, so you cannot access logs saved to disk by the errand. You can use <code>--keep-alive</code> flag when running an errand to keep the VM with its logs.
+
+---
+### Monit logs {: #monit-logs }
+
+13.  The Agent uses Monit to start, restart, and stop release job processes as specified by the release jobs. Monit detects errors and outputs often useful information to its log. Use `tail` to examine the `monit.log` on a VM:
+
+```shell
+sudo tail -f -n 200 /var/vcap/monit/monit.log
+```
+
+---
+### Agent logs {: #agent-logs }
+
+14.  Agent logs contain configuration and runtime information from the Agent running on a VM. Review these logs if the Director sees VM as unresponsive or the Director fails to contact it during its creation.
+
+The Agent stores logs in `/var/vcap/bosh/log/` and outputs most recent content to `/var/vcap/bosh/log/current`.
+
+```shell
+sudo tail -f -n 200 /var/vcap/bosh/log/current
+```
+
+!!! note
+    Agent logs are only accessible to the root user.
+    
+    
