@@ -179,6 +179,54 @@ root@cypress-ops-manager:~# cf curl /v2/apps/1f70ffeb-a927-487e-8349-ade2ceb683d
 
 ```
 
+Running cf CLI command for multiple guid's can also be automated as shown below:
 
+Copy all the app guid to a file and you can run something like the below for loop against the file (replace the filename in the below loop)
 
+```
+for i in $(cat filename); do 
+    echo $(cf curl /v2/apps/$i/stats | grep name | uniq)
+done
+```
 
+Example Output: 
+
+```
+ubuntu@cypress-ops-manager:~$ cat filename 
+1f70ffeb-a927-487e-8349-ade2ceb683d3
+09901e52-1eb6-4f18-ac69-e56f4d04eb9e
+8fe82547-1824-4832-899f-7a6ef56563d2
+70c253af-1b71-45bc-9720-1c7d81016b77
+70c253af-1b71-45bc-9720-1c7d81016b77
+488922d0-1b82-4580-bff7-a5b661d3cfd5
+488922d0-1b82-4580-bff7-a5b661d3cfd5
+1f70ffeb-a927-487e-8349-ade2ceb683d3
+57461897-b221-4a4d-8b0d-c4c2e04eaba4
+488922d0-1b82-4580-bff7-a5b661d3cfd5
+1f70ffeb-a927-487e-8349-ade2ceb683d3
+8fe82547-1824-4832-899f-7a6ef56563d2
+1f70ffeb-a927-487e-8349-ade2ceb683d3
+1f70ffeb-a927-487e-8349-ade2ceb683d3
+1f70ffeb-a927-487e-8349-ade2ceb683d3
+
+ubuntu@cypress-ops-manager:~$ for i in $(cat filename); do 
+>     echo $(cf curl /v2/apps/$i/stats | grep name | uniq)
+> done
+"name": "apps-manager-js-green",
+"name": "spring-music",
+"name": "search-server-green",
+"name": "p-invitations-green",
+"name": "p-invitations-green",
+"name": "autoscale",
+"name": "autoscale",
+"name": "apps-manager-js-green",
+"name": "autoscale-api",
+"name": "autoscale",
+"name": "apps-manager-js-green",
+"name": "search-server-green",
+"name": "apps-manager-js-green",
+"name": "apps-manager-js-green",
+"name": "apps-manager-js-green",
+ubuntu@cypress-ops-manager:~$ 
+
+```
