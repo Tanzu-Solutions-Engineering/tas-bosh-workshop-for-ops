@@ -245,6 +245,20 @@ monit summary
 monit start <process-name>
 ```
 
+6.  Now lets repeat steps 3 though 5 for every Diego Cell that has stopped processes.    
+
+
+### [Developer] 
+
+4.  Once all Diego cells have been remediated the developer can try pushing their application again.    
+
+```
+cf push
+```
+
+### [Site Reliability Engineer]
+
+7.  After verifying all services have been restored we will need to take a look to see what exactly happened to determine root cause.   
 
 
 
