@@ -44,11 +44,10 @@ We will begin this lab with the SRE role.
 <br/>
 
 
-### [Site Reliability Engineer]
+
 ### Find VM where Cloud Controller is installed
 
 - `bosh vms` - to list all VMs across their foundation looking for: `cloud_controller/<VM-GUID>`
-
 SSH into the `cloud_controller` VM 
 - `bosh ssh <VM-Type>/<VM-GUID>  -d <cf-DeploymentName>`
 
@@ -96,7 +95,14 @@ FAILED
 ```
 
 ### [Site Reliability Engineer]
+
+Since we are familar with the Cloud Foundry Architecture we know that the cloud controller plays a key role.   The Cloud Controller (CC) directs the deployment of applications. To push an app to Cloud Foundry / Tanzu Application Service, you target the Cloud Controller API.  The Cloud Controller then directs the Diego Brain through the CC-Bridge components to coordinate individual Diego cells to stage and run applications.
+
+![image](https://user-images.githubusercontent.com/73367284/184706224-77de93ee-2213-4cbf-9203-7946829f85b6.png)
+
+
 Now the SRE team member can start all monit processes that are stopped or start them individually 
+
 - `monit start all`
 </br>or
 - `monit start cloud_controller_ng`
