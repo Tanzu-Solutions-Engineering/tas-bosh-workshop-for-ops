@@ -305,5 +305,98 @@ Expected output:
 The following output shows me that a user who has admin access requeted to stop the above services.    
 
 
+Let's pretend that this issue was not as obvious to determine.  In this case an engineer may be required to upload a log bundle to a support ticket.   Please see the following to generate a log bundle for each affected VM.  
 
+
+9.  bosh logs -d  VM-Type/VM-GUID  [--dir DESTINATION_DIRECTORY]
+ 
+Example output 
+  
+```
+ubuntu@cypress-ops-manager:~$ bosh logs -d cf-aca0fbd04df6cc023e6c diego_cell/b8fc2b05-ce4c-4959-be81-944fdcdbd51f
+Using environment '10.0.0.5' as client 'ops_manager'
+
+Using deployment 'cf-aca0fbd04df6cc023e6c'
+
+Task 299
+
+Task 299 | 16:10:44 | Fetching logs for diego_cell/b8fc2b05-ce4c-4959-be81-944fdcdbd51f (2): Finding and packing log files (00:00:02)
+
+Task 299 Started  Mon Aug 15 16:10:44 UTC 2022
+Task 299 Finished Mon Aug 15 16:10:46 UTC 2022
+Task 299 Duration 00:00:02
+Task 299 done
+
+Downloading resource 'bad71754-0b7c-44e4-bdbc-cec23986a1dd' to '/home/ubuntu/cf-aca0fbd04df6cc023e6c.diego_cell.b8fc2b05-ce4c-4959-be81-944fdcdbd51f-20220815-161046-974791195.tgz'...
+
+Succeeded
+  
+```
+  
+
+To retrieve logs from all VMs deployed within a deployment just leave off the VM name.   
+  
+Example Output: 
+
+```
+ubuntu@cypress-ops-manager:~$ bosh logs -d cf-aca0fbd04df6cc023e6c
+Using environment '10.0.0.5' as client 'ops_manager'
+
+Using deployment 'cf-aca0fbd04df6cc023e6c'
+
+Task 300
+
+Task 300 | 16:12:51 | Fetching logs for diego_cell/74ea458a-5c1c-445f-94e5-777b7810998f (0): Finding and packing log files
+Task 300 | 16:12:51 | Fetching logs for diego_cell/b8fc2b05-ce4c-4959-be81-944fdcdbd51f (2): Finding and packing log files
+Task 300 | 16:12:51 | Fetching logs for log_cache/5ec7e740-a45e-43f6-95e6-348e29d7abef (0): Finding and packing log files
+Task 300 | 16:12:51 | Fetching logs for nfs_server/684737dd-e80c-4777-a8c4-b42926ffaf8a (0): Finding and packing log files
+Task 300 | 16:12:51 | Fetching logs for doppler/90cafec5-3b53-41fc-998a-ab2059a028a3 (0): Finding and packing log files
+Task 300 | 16:12:51 | Fetching logs for loggregator_trafficcontroller/81705678-612a-469b-a355-bdc8b5bcb4a5 (0): Finding and packing log files
+Task 300 | 16:12:51 | Fetching logs for cloud_controller/2df4d42f-e2f9-43d6-ad7b-0e74d9f1c55a (0): Finding and packing log files
+Task 300 | 16:12:51 | Fetching logs for clock_global/a66a334e-f1a1-49f6-b838-5dbaed7e30b5 (0): Finding and packing log files
+Task 300 | 16:12:51 | Fetching logs for uaa/16a1feb8-d7b3-4314-850d-7a7803a9ef58 (0): Finding and packing log files
+Task 300 | 16:12:51 | Fetching logs for router/16eab2ca-02ed-4fa3-9168-849920b5ca27 (0): Finding and packing log files
+Task 300 | 16:12:52 | Fetching logs for nfs_server/684737dd-e80c-4777-a8c4-b42926ffaf8a (0): Finding and packing log files (00:00:01)
+Task 300 | 16:12:52 | Fetching logs for doppler/90cafec5-3b53-41fc-998a-ab2059a028a3 (0): Finding and packing log files (00:00:01)
+Task 300 | 16:12:52 | Fetching logs for router/16eab2ca-02ed-4fa3-9168-849920b5ca27 (0): Finding and packing log files (00:00:01)
+Task 300 | 16:12:52 | Fetching logs for loggregator_trafficcontroller/81705678-612a-469b-a355-bdc8b5bcb4a5 (0): Finding and packing log files (00:00:01)
+Task 300 | 16:12:52 | Fetching logs for log_cache/5ec7e740-a45e-43f6-95e6-348e29d7abef (0): Finding and packing log files (00:00:01)
+Task 300 | 16:12:53 | Fetching logs for diego_database/2c4aa147-f16e-4752-a920-3d59db8d7af8 (0): Finding and packing log files
+Task 300 | 16:12:53 | Fetching logs for mysql_proxy/7b78691d-04c3-4031-a2b0-d30c16b4932a (0): Finding and packing log files
+Task 300 | 16:12:53 | Fetching logs for backup_restore/96385b0a-1acf-45ad-941b-7eaab3dcd763 (0): Finding and packing log files
+Task 300 | 16:12:53 | Fetching logs for diego_cell/ddafd0de-f27e-4054-9b92-6bf4bab1d4fd (1): Finding and packing log files
+Task 300 | 16:12:53 | Fetching logs for mysql/5e839194-4d70-46d6-bfcc-6d550bab9b7b (0): Finding and packing log files
+Task 300 | 16:12:53 | Fetching logs for diego_cell/74ea458a-5c1c-445f-94e5-777b7810998f (0): Finding and packing log files (00:00:02)
+Task 300 | 16:12:53 | Fetching logs for diego_cell/b8fc2b05-ce4c-4959-be81-944fdcdbd51f (2): Finding and packing log files (00:00:02)
+Task 300 | 16:12:54 | Fetching logs for clock_global/a66a334e-f1a1-49f6-b838-5dbaed7e30b5 (0): Finding and packing log files (00:00:03)
+Task 300 | 16:12:54 | Fetching logs for backup_restore/96385b0a-1acf-45ad-941b-7eaab3dcd763 (0): Finding and packing log files (00:00:01)
+Task 300 | 16:12:54 | Fetching logs for mysql_monitor/ddad4a6b-e2cd-4d1e-88d4-d19bccf6198e (0): Finding and packing log files
+Task 300 | 16:12:54 | Fetching logs for cloud_controller_worker/c2302b70-d3dc-428f-a05d-daeaf8dcd37f (0): Finding and packing log files
+Task 300 | 16:12:54 | Fetching logs for mysql_proxy/7b78691d-04c3-4031-a2b0-d30c16b4932a (0): Finding and packing log files (00:00:01)
+Task 300 | 16:12:54 | Fetching logs for credhub/0de1db29-1610-4312-95cc-069dec56617f (0): Finding and packing log files
+Task 300 | 16:12:54 | Fetching logs for nats/db5a0c47-941d-434e-a80a-de15b47dba65 (0): Finding and packing log files
+Task 300 | 16:12:54 | Fetching logs for diego_brain/baab04be-d01a-45e3-9e33-f853f3fe32a6 (0): Finding and packing log files
+Task 300 | 16:12:54 | Fetching logs for uaa/16a1feb8-d7b3-4314-850d-7a7803a9ef58 (0): Finding and packing log files (00:00:03)
+Task 300 | 16:12:55 | Fetching logs for mysql/5e839194-4d70-46d6-bfcc-6d550bab9b7b (0): Finding and packing log files (00:00:02)
+Task 300 | 16:12:55 | Fetching logs for mysql_monitor/ddad4a6b-e2cd-4d1e-88d4-d19bccf6198e (0): Finding and packing log files (00:00:01)
+Task 300 | 16:12:55 | Fetching logs for credhub/0de1db29-1610-4312-95cc-069dec56617f (0): Finding and packing log files (00:00:01)
+Task 300 | 16:12:55 | Fetching logs for cloud_controller_worker/c2302b70-d3dc-428f-a05d-daeaf8dcd37f (0): Finding and packing log files (00:00:01)
+Task 300 | 16:12:55 | Fetching logs for nats/db5a0c47-941d-434e-a80a-de15b47dba65 (0): Finding and packing log files (00:00:01)
+Task 300 | 16:12:55 | Fetching logs for diego_brain/baab04be-d01a-45e3-9e33-f853f3fe32a6 (0): Finding and packing log files (00:00:01)
+Task 300 | 16:12:56 | Fetching logs for diego_database/2c4aa147-f16e-4752-a920-3d59db8d7af8 (0): Finding and packing log files (00:00:03)
+Task 300 | 16:12:56 | Fetching logs for diego_cell/ddafd0de-f27e-4054-9b92-6bf4bab1d4fd (1): Finding and packing log files (00:00:03)
+Task 300 | 16:12:58 | Fetching logs for cloud_controller/2df4d42f-e2f9-43d6-ad7b-0e74d9f1c55a (0): Finding and packing log files (00:00:07)
+Task 300 | 16:12:58 | Fetching group of logs: Packing log files together
+
+Task 300 Started  Mon Aug 15 16:12:51 UTC 2022
+Task 300 Finished Mon Aug 15 16:12:58 UTC 2022
+Task 300 Duration 00:00:07
+Task 300 done
+
+Downloading resource '1264c1e1-ec6c-4e98-a31a-c142291ae069' to '/home/ubuntu/cf-aca0fbd04df6cc023e6c-20220815-161306-169112597.tgz'...
+
+[-------------------------------------------->______________________] 66.06%   ?
+Succeeded
+  
+```
 
