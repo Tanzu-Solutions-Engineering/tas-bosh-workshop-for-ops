@@ -308,7 +308,7 @@ Command "actual-lrp-groups" is deprecated, use "actual-lrps" instead.
 
 You can also use cfdot to pull metrics regarding your diego cell resources.   
 
-Run the following command to view resources of the current diego cell.  
+14.  Run the following command to view resources of the current diego cell.  
 
 ```
 cfdot cell-states | jq '{cell_id, TotalResources, AvailableResources}'
