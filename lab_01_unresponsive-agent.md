@@ -308,11 +308,12 @@ Expected output:
 The following output shows me that a user who has admin access requeted to stop the above services.    
 
 
-Let's pretend that this issue was not as obvious to determine.  In this case an engineer may be required to upload a log bundle to a support ticket.   Please see the following to generate a log bundle for each affected VM.  
+9.  Let's pretend that this issue was not as obvious to determine.  In this case an engineer may be required to upload a log bundle to a support ticket.   Please see the following example to generate a log bundle for each affected VM.  
 
+```
+bosh logs -d  VM-Type/VM-GUID  [--dir DESTINATION_DIRECTORY]
+```
 
-9.  bosh logs -d  VM-Type/VM-GUID  [--dir DESTINATION_DIRECTORY]
- 
 Example output 
   
 ```
@@ -402,4 +403,12 @@ Downloading resource '1264c1e1-ec6c-4e98-a31a-c142291ae069' to '/home/ubuntu/cf-
 Succeeded
   
 ```
+
+Let's say you are doing some active troubleshooting and would like to review the logs in real-time on each VM.   
+To do this you will need to SSH into the affected VM and switch to the appropriate logging directory on the host depending on the type of logs you would like to review.   
+
+For example there are job logs, errand logs, agent logs and monit logs which you are now most familar with.   
+
+
+
 
