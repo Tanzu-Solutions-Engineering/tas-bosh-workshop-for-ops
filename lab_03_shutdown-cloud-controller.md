@@ -251,7 +251,7 @@ diego_cell/74ea458a-5c1c-445f-94e5-777b7810998f:~$ echo $PGUIDS
 09901e52-1eb6-4f18-ac69-e56f4d04eb9e-05ee8942-b1dd-411d-b21e-e58864721187
 ```
 
-13.  Now that you will the GUID, you can run the following command to identify details around the application and where its running.   
+13.  Now that you have the GUID, you can run the following command to identify details around the application and where its running.   
 
 ```
 cfdot actual-lrp-groups | grep "$PGUIDS" | jq
@@ -305,4 +305,31 @@ Command "actual-lrp-groups" is deprecated, use "actual-lrps" instead.
 
 ```
 
+
+You can also use cfdot to pull metrics regarding your diego cell resources.   
+
+Run the following command to view resources of the current diego cell.  
+
+```
+cfdot cell-states | jq '{cell_id, TotalResources, AvailableResources}'
+```
+
+Example Output: 
+```
+diego_cell/74ea458a-5c1c-445f-94e5-777b7810998f:~$ cfdot cell-states | jq '{cell_id, TotalResources, AvailableResources}'
+{
+  "cell_id": "b8fc2b05-ce4c-4959-be81-944fdcdbd51f",
+  "TotalResources": {
+    "MemoryMB": 13016,
+    "DiskMB": 106617,
+    "Containers": 249
+  },
+  "AvailableResources": {
+    "MemoryMB": 7928,
+    "DiskMB": 91257,
+    "Containers": 234
+  }
+}
+
+```
 
