@@ -260,15 +260,15 @@ cf push
 
 After verifying all services have been restored we will need to take a look to see what exactly happened to determine root cause.   
 
-7.  From the Ops Manager CLI lets take a look at our monit log file to see if there were any errors or changes logged to help us better understand what caused our processes to stop running.   
+From the Ops Manager CLI lets take a look at our monit log file to see if there were any errors or changes logged to help us better understand what caused our processes to stop running.   
 
-Change to the monit directory
+7.  Change to the monit directory
 
 ```
 cd /var/vcap/monit
 ```
 
-Now view monit the log file and grep for "stop service"
+8.  Now view monit the log file and grep for "stop service"
 
 ```
 cat monit.log |grep "stop service"
