@@ -247,6 +247,7 @@ monit start <process-name>
 
 6.  Now lets repeat steps 3 though 5 for every Diego Cell that has stopped processes.    
 
+<br/>
 
 ### [Developer] 
 
@@ -255,6 +256,8 @@ monit start <process-name>
 ```
 cf push
 ```
+
+<br/>
 
 ### [Site Reliability Engineer]
 
