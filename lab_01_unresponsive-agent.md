@@ -258,7 +258,51 @@ cf push
 
 ### [Site Reliability Engineer]
 
-7.  After verifying all services have been restored we will need to take a look to see what exactly happened to determine root cause.   
+After verifying all services have been restored we will need to take a look to see what exactly happened to determine root cause.   
+
+7.  From the Ops Manager CLI lets take a look at our monit log file to see if there were any errors or changes logged to help us better understand what caused our processes to stop running.   
+
+Change to the monit directory
+
+```
+cd /var/vcap/monit
+```
+
+Now view monit the log file and grep for "stop service"
+
+```
+cat monit.log |grep "stop service"
+```
+
+Expected output: 
+```
+[UTC Aug 10 16:41:06] info     : stop service 'system-metrics-agent' on user request
+[UTC Aug 10 16:41:06] info     : stop service 'bosh-dns-healthcheck' on user request
+[UTC Aug 10 16:41:06] info     : stop service 'bosh-dns-resolvconf' on user request
+[UTC Aug 10 16:41:06] info     : stop service 'bosh-dns' on user request
+[UTC Aug 10 16:41:06] info     : stop service 'iptables-logger' on user request
+[UTC Aug 10 16:41:06] info     : stop service 'bosh-dns-adapter' on user request
+[UTC Aug 10 16:41:06] info     : stop service 'smbdriver' on user request
+[UTC Aug 10 16:41:06] info     : stop service 'nfsv3driver' on user request
+[UTC Aug 10 16:41:06] info     : stop service 'vxlan-policy-agent' on user request
+[UTC Aug 10 16:41:06] info     : stop service 'netmon' on user request
+[UTC Aug 10 16:41:06] info     : stop service 'silk-daemon' on user request
+[UTC Aug 10 16:41:06] info     : stop service 'prom_scraper' on user request
+[UTC Aug 10 16:41:06] info     : stop service 'loggr-udp-forwarder' on user request
+[UTC Aug 10 16:41:06] info     : stop service 'loggr-forwarder-agent' on user request
+[UTC Aug 10 16:41:06] info     : stop service 'metrics-agent' on user request
+[UTC Aug 10 16:41:06] info     : stop service 'metrics-discovery-registrar' on user request
+[UTC Aug 10 16:41:06] info     : stop service 'loggr-syslog-agent' on user request
+[UTC Aug 10 16:41:06] info     : stop service 'loggregator_agent' on user request
+[UTC Aug 10 16:41:06] info     : stop service 'garden' on user request
+[UTC Aug 10 16:41:06] info     : stop service 'route_emitter' on user request
+[UTC Aug 10 16:41:06] info     : stop service 'rep' on user request
+[UTC Aug 15 14:51:14] info     : stop service 'rep' on user request
+[UTC Aug 15 14:51:25] info     : stop service 'garden' on user request
+
+```
+
+The following output shows me that a user who has admin access requeted to stop the above services.    
 
 
 
