@@ -1,5 +1,4 @@
-# Tanzu Application Service 
-# Hands On Lab for Platform Operators 
+# TAS  LAB 01
 
 <br/>
 

@@ -1,5 +1,5 @@
-# Tanzu Application Service 
-# Hands On Lab for Platform Operators 
+# TAS  LAB 02
+
 <br/>
 
 ## Game Day!!!
