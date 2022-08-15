@@ -232,9 +232,20 @@ Notice the failing processes which could be potentially causing or a side effect
 bosh ssh <VM-Type>/<VM-GUID>  -d <cf-DeploymentName>
 ```
 
-<!-- Once logged in the SRE team member can su to root and then run monit summary to list all non-running processes that are required for TAS 
-- monit summary 
+4.  Once logged in the SRE team member can su to root and then run monit summary to list all non-running processes that are required for TAS 
 
-Now the SRE team member can start all monit processes that are stopped or start them individually 
-- monit start all
- -->
+```
+monit summary 
+```
+
+
+5.  Now the engineer can start all monit processes that are stopped or start them individually using the command below.  
+
+```
+monit start <process-name>
+```
+
+
+
+
+
