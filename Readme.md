@@ -37,7 +37,6 @@ VMware Tanzu Application Service is a modern application platform for enterprise
    - Bosh Concepts (ie. stemcells, CPI, releases, manifests, etc. ) 
 4. [Hands on Labs](#example)
    - Unresponsive Agent Lab
-   - Missing Diego Cell Lab
    - Shutdown Cloud Controller Lab
 
 
