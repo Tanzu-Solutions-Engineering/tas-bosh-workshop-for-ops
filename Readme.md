@@ -1305,6 +1305,17 @@ Run the following command to discovery applications that are running within a se
 cfdot cell-state <guid-of-diego-cell> | jq -r '. | "\ndiego_cell:", .cell_id, "\n", "App-Guids:", .LRPs[].process_guid[0:36]'
 ```
 
+The GUID of the VM can be found within the name of the VM resource in the following format   `<VM-Type>/<GUID>`
+
+```
+ubuntu@cypress-ops-manager:~$ bosh vms
+diego_cell/74ea458a-5c1c-445f-94e5-777b7810998f                     running        us-central1-f  10.0.4.17  vm-0573608e-ffc7-49ea-74bd-08080ab0ffe2  toolsmiths.n1-highmem-2.128  true    bosh-google-kvm-ubuntu-xenial-go_agent/621.261  
+diego_cell/b8fc2b05-ce4c-4959-be81-944fdcdbd51f                     running        us-central1-f  10.0.4.24  vm-0d5b1820-7ad3-407d-49e0-040459e64ad0  toolsmiths.n1-highmem-2.128  true    bosh-google-kvm-ubuntu-xenial-go_agent/621.261  
+diego_cell/ddafd0de-f27e-4054-9b92-6bf4bab1d4fd                     running        us-central1-f  10.0.4.23  vm-e5d8ed8f-99e4-4cda-594f-1631cb4e66b5  toolsmiths.n1-highmem-2.128  true    bosh-google-kvm-ubuntu-xenial-go_agent/621.261  
+
+```
+
+
 Example Output: 
 
 ```
