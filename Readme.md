@@ -707,13 +707,16 @@ Our developer is ready to kick the tires on a prototype they had been working on
 <br/>
 
 ### [Developer] 
-1. Git clone repo with prototype code 
+
+#### [Step 1.] 
+Git clone repo with prototype code 
 
 ```
 git clone https://github.com/jrobinsonvm/spring-music.git
 ```
 
-2. Deploy the Application using CF CLI
+#### [Step 2.] 
+Deploy the Application using CF CLI
 
 ```
 cd spring-music && cf push
@@ -722,7 +725,8 @@ cd spring-music && cf push
 Oh no!  There seems to be an issue with pushing apps today.  That's unusual with this platform.  
 
 
-3. Before alerting my SRE Team, let's check our app logs to see if there's anything reporting back obvious errors.   
+#### [Step 3.] 
+Before alerting my SRE Team, let's check our app logs to see if there's anything reporting back obvious errors.   
 
 ```
 cf logs spring-music
@@ -742,9 +746,11 @@ Let's start our investigation in bosh!
 
 Our Site reliability engineering team will investigate the issue by logging into their jump host so that they can connect to the bosh director to begin their troubleshooting.   
 
+<br/>
 
 
-1.  Once logged into their jumphost and connected to bosh.  The engineer working the issue will issue the bosh deployments command to list all deployments across their foundation.   
+#### [Step 1.] 
+Once logged into their jumphost and connected to bosh.  The engineer working the issue will issue the bosh deployments command to list all deployments across their foundation.   
 
 ```
 bosh deployments
@@ -815,7 +821,8 @@ Succeeded
 ```
 
 
-2.  Let's now issue the bosh vms command to list all VMs across our foundation.   
+#### [Step 2.] 
+Let's now issue the bosh vms command to list all VMs across our foundation.   
 
 ```
 bosh vms
@@ -862,7 +869,8 @@ Succeeded
 From this view we can clearly see that there's an issue with several of our diego cells. 
 
 
-2. Now try running the bosh instances command along with the process flag to list out any processes that may be failing on the VMs
+#### [Step 3.] 
+Now try running the bosh instances command along with the process flag to list out any processes that may be failing on the VMs
 
 
 ```
@@ -881,32 +889,38 @@ bosh instances --ps |grep diego
 
 Notice the failing processes which could be potentially causing or a side effect of a larger issue that causing our VMs to fail.  Let's see if we can restart the failed/stopped processes to at least restore service then develop a root cause so that this issue doesn't happen again.   
 
-3.  Lets now SSH into each of the failing VMs to attempt to restart all required processes.   
+#### [Step 4.] 
+Lets now SSH into each of the failing VMs to attempt to restart all required processes.   
 
 ```
 bosh ssh <VM-Type>/<VM-GUID>  -d <cf-DeploymentName>
 ```
 
-4.  Once logged in the SRE team member can su to root and then run monit summary to list all non-running processes that are required for TAS 
+#### [Step 5.] 
+Once logged in the SRE team member can su to root and then run monit summary to list all non-running processes that are required for TAS 
 
 ```
 monit summary 
 ```
 
 
-5.  Now the engineer can start all monit processes that are stopped or start them individually using the command below.  
+#### [Step 6.] 
+Now the engineer can start all monit processes that are stopped or start them individually using the command below.  
 
 ```
 monit start <process-name>
 ```
 
-6.  Now lets repeat steps 3 though 5 for every Diego Cell that has stopped processes.    
+
+Now lets repeat steps 3 though 5 for every Diego Cell that has stopped processes.    
 
 <br/>
 
+
 ### [Developer] 
 
-4.  Once all Diego cells have been remediated the developer can try pushing their application again.    
+#### [Step 4.] 
+Once all Diego cells have been remediated the developer can try pushing their application again.    
 
 ```
 cf push
@@ -920,13 +934,15 @@ After verifying all services have been restored we will need to take a look to s
 
 From the Ops Manager CLI lets take a look at our monit log file to see if there were any errors or changes logged to help us better understand what caused our processes to stop running.   
 
-7.  Change to the monit directory
+#### [Step 7.] 
+Change to the monit directory
 
 ```
 cd /var/vcap/monit
 ```
 
-8.  Now view monit the log file and grep for "stop service"
+#### [Step 8.] 
+Now view monit the log file and grep for "stop service"
 
 ```
 cat monit.log |grep "stop service"
@@ -963,7 +979,8 @@ Expected output:
 The following output shows me that a user who has admin access requeted to stop the above services.    
 
 
-9.  Let's pretend that this issue was not as obvious to determine.  In this case an engineer may be required to upload a log bundle to a support ticket.   Please see the following example to generate a log bundle for each affected VM.  
+#### [Step 9.] 
+Let's pretend that this issue was not as obvious to determine.  In this case an engineer may be required to upload a log bundle to a support ticket.   Please see the following example to generate a log bundle for each affected VM.  
 
 ```
 bosh logs -d  VM-Type/VM-GUID  [--dir DESTINATION_DIRECTORY]
@@ -1069,7 +1086,8 @@ For example there are job logs, errand logs, agent logs and monit logs which you
 
 Release jobs on VMs produce logs throughout different lifecycle events. Release authors are strongly encouraged to place release job logs into `/var/vcap/sys/log/<release_job_name>/*.log`, providing a consistent place for the operator to find them.
 
-10.  For example `garden` release job will create two log files.  Let's cat both the standard error and standard out files.   
+#### [Step 10.] 
+For example `garden` release job will create two log files.  Let's cat both the standard error and standard out files.   
 
 ```
 cat /var/vcap/sys/log/garden/garden.stdout.log
@@ -1081,6 +1099,7 @@ cat /var/vcap/sys/log/garden/garden.stderr.log
 
 
 ---
+
 ### Errand logs {: #errand-logs }
 
 Unlike regular job logs BOSH does not automatically redirect errand logs to `/var/vcap/sys/log/*` directory, though we are planning to do so in future.
@@ -1089,13 +1108,15 @@ Errand's stdout and stderr output will be shown by the CLI when it's smaller tha
 
 To save output from an errand VM:
 
-     In the errand run script, redirect the output to a log.
-11.  Using the CLI, run `bosh run-errand X` with the `--download-logs` option to download the logs.
+In the errand run script, redirect the output to a log.
+     
+#### [Step 11.] 
+Using the CLI, run `bosh run-errand X` with the `--download-logs` option to download the logs.
 
-    By default, the CLI downloads the logs to your present working directory. Use the `--logs-dir destination_directory` option to change this directory.
+By default, the CLI downloads the logs to your present working directory. Use the `--logs-dir destination_directory` option to change this directory.
 
 ```shell
-bosh run-errand smoke_tests --download-logs --logs-dir ~/smoke-tests-logs.txt
+bosh run-errand smoke_tests -d <deployment-name>  --download-logs --logs-dir ~/smoke-tests-logs.txt
 ```
 
 !!! note
@@ -1104,7 +1125,8 @@ bosh run-errand smoke_tests --download-logs --logs-dir ~/smoke-tests-logs.txt
 ---
 ### Monit logs {: #monit-logs }
 
-12.  The Agent uses Monit to start, restart, and stop release job processes as specified by the release jobs. Monit detects errors and outputs often useful information to its log. Use `tail` to examine the `monit.log` on a VM:
+#### [Step 12.] 
+The Agent uses Monit to start, restart, and stop release job processes as specified by the release jobs. Monit detects errors and outputs often useful information to its log. Use `tail` to examine the `monit.log` on a VM:
 
 ```shell
 sudo tail -f -n 200 /var/vcap/monit/monit.log
@@ -1113,7 +1135,8 @@ sudo tail -f -n 200 /var/vcap/monit/monit.log
 ---
 ### Agent logs {: #agent-logs }
 
-13.  Agent logs contain configuration and runtime information from the Agent running on a VM. Review these logs if the Director sees VM as unresponsive or the Director fails to contact it during its creation.
+#### [Step 13.] 
+Agent logs contain configuration and runtime information from the Agent running on a VM. Review these logs if the Director sees VM as unresponsive or the Director fails to contact it during its creation.
 
 The Agent stores logs in `/var/vcap/bosh/log/` and outputs most recent content to `/var/vcap/bosh/log/current`.
 
@@ -1178,14 +1201,17 @@ We will begin this lab with the SRE role.
 
 ### Find VM where Cloud Controller is installed
 
-1.  Find VMs  
+#### [Step 1.] 
+Find VMs  
 - `bosh vms` - to list all VMs across their foundation looking for: `cloud_controller/<VM-GUID>`
 
-2.  SSH to VM 
+#### [Step 2.] 
+SSH to VM 
 SSH into the `cloud_controller` VM 
 - `bosh ssh <VM-Type>/<VM-GUID>  -d <cf-DeploymentName>`
 
-3.  Once logged in the SRE team member can run `sudo su` to gain root access and then run `monit summary` to list all processes.   
+#### [Step 3.] 
+Once logged in the SRE team member can run `sudo su` to gain root access and then run `monit summary` to list all processes.   
 
 ```
 $ monit summary
@@ -1215,7 +1241,8 @@ System 'system_aee0d44d-eb4d-49d9-8e34-8fc2ba6ba3f1' running
 
 We see here that `cloud_controller_ng` is in a running state.
 
-4.  Lets stop the cloud controller process.
+#### [Step 4.] 
+Lets stop the cloud controller process.
 
 - `monit stop cloud_controller_ng`
 
@@ -1236,13 +1263,15 @@ Since we are familar with the Cloud Foundry Architecture we know that the cloud 
 ![image](https://user-images.githubusercontent.com/73367284/184706224-77de93ee-2213-4cbf-9203-7946829f85b6.png)
 
 
-5.  Now the SRE team member can start all monit processes that are stopped or start them individually 
+#### [Step 5.] 
+Now the SRE team member can start all monit processes that are stopped or start them individually 
 
 - `monit start all`
 </br>or
 - `monit start cloud_controller_ng`
 
-6.  Verify cloud_controller_ng is running
+#### [Step 6.] 
+Verify cloud_controller_ng is running
 - `monit summary`
 
 ### [Developer]
@@ -1263,9 +1292,14 @@ This raises the question of how do we identify what applications are running on 
 
 To do this we will leverage a tool called cfdot "CF Diego Operator Toolkit".   
 
-7.  From the Ops Manager VM SSH to one of your diego cells.   
-8.  Type the cfdot command without sudo'ing to root.
-9.  Run the following command to discovery applications that are running within a selected diego cell.   
+#### [Step 7.] 
+From the Ops Manager VM SSH to one of your diego cells.   
+
+#### [Step 8.] 
+Type the cfdot command without sudo'ing to root.
+
+#### [Step 9.] 
+Run the following command to discovery applications that are running within a selected diego cell.   
 
 ```
 cfdot cell-state <guid-of-diego-cell> | jq -r '. | "\ndiego_cell:", .cell_id, "\n", "App-Guids:", .LRPs[].process_guid[0:36]'
@@ -1302,7 +1336,8 @@ App-Guids:
 Its kind of hard to tell what applications are running here with just their GUIDs, which is why we will be making a call to the CF API to determine what the actual names are.  
 
 
-10.  Open a separate terminal to run the following CF CLI command. 
+#### [Step 10.] 
+Open a separate terminal to run the following CF CLI command. 
 
 ```
 cf curl /v2/apps/<guid-of-app>/stats | grep name | uniq
@@ -1319,7 +1354,8 @@ root@cypress-ops-manager:~# cf curl /v2/apps/1f70ffeb-a927-487e-8349-ade2ceb683d
 Running cf CLI command for multiple guid's can also be automated as shown below:
 
 
-11.  Copy all the app guid to a file and you can run something like the below for loop against the file (replace the filename in the below loop)
+#### [Step 11.] 
+Copy all the app guid to a file and you can run something like the below for loop against the file (replace the filename in the below loop)
 
 
 ```
@@ -1374,7 +1410,8 @@ You can also use cfdot cli to determine how to find out where a particular app i
 
 From a diego cell run the following command to identify where the spring-music app is running based on its route.   
 
-12.  Set command as variable 
+#### [Step 12.] 
+Set command as variable 
 
 
 ```
@@ -1389,7 +1426,8 @@ diego_cell/74ea458a-5c1c-445f-94e5-777b7810998f:~$ echo $PGUIDS
 09901e52-1eb6-4f18-ac69-e56f4d04eb9e-05ee8942-b1dd-411d-b21e-e58864721187
 ```
 
-13.  Now that you have the GUID, you can run the following command to identify details around the application and where its running.   
+#### [Step 13.] 
+Now that you have the GUID, you can run the following command to identify details around the application and where its running.   
 
 
 ```
@@ -1448,7 +1486,8 @@ Command "actual-lrp-groups" is deprecated, use "actual-lrps" instead.
 
 You can also use cfdot to pull metrics regarding your diego cell resources.   
 
-14.  Run the following command to view resources of the current diego cell.  
+#### [Step 14.] 
+Run the following command to view resources of the current diego cell.  
 
 ```
 cfdot cell-states | jq '{cell_id, TotalResources, AvailableResources}'

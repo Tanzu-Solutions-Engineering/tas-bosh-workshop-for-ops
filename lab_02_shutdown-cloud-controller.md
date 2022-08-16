@@ -47,14 +47,18 @@ We will begin this lab with the SRE role.
 
 ### Find VM where Cloud Controller is installed
 
-1.  Find VMs  
+#### [Step 1.] 
+Find VMs  
 - `bosh vms` - to list all VMs across their foundation looking for: `cloud_controller/<VM-GUID>`
 
-2.  SSH to VM 
+#### [Step 2.] 
+SSH to VM 
 SSH into the `cloud_controller` VM 
 - `bosh ssh <VM-Type>/<VM-GUID>  -d <cf-DeploymentName>`
 
-3.  Once logged in the SRE team member can run `sudo su` to gain root access and then run `monit summary` to list all processes.   
+#### [Step 3.] 
+Once logged in the SRE team member can run `sudo su` to gain root access and then run `monit summary` to list all processes.   
+
 ```
 $ monit summary
 The Monit daemon 5.2.5 uptime: 17h 22m 
@@ -83,7 +87,8 @@ System 'system_aee0d44d-eb4d-49d9-8e34-8fc2ba6ba3f1' running
 
 We see here that `cloud_controller_ng` is in a running state.
 
-4.  Lets stop the cloud controller process.
+#### [Step 4.] 
+Lets stop the cloud controller process.
 
 - `monit stop cloud_controller_ng`
 
@@ -104,13 +109,15 @@ Since we are familar with the Cloud Foundry Architecture we know that the cloud 
 ![image](https://user-images.githubusercontent.com/73367284/184706224-77de93ee-2213-4cbf-9203-7946829f85b6.png)
 
 
-5.  Now the SRE team member can start all monit processes that are stopped or start them individually 
+#### [Step 5.] 
+Now the SRE team member can start all monit processes that are stopped or start them individually 
 
 - `monit start all`
 </br>or
 - `monit start cloud_controller_ng`
 
-6.  Verify cloud_controller_ng is running
+#### [Step 6.] 
+Verify cloud_controller_ng is running
 - `monit summary`
 
 ### [Developer]
@@ -131,15 +138,21 @@ This raises the question of how do we identify what applications are running on 
 
 To do this we will leverage a tool called cfdot "CF Diego Operator Toolkit".   
 
-7.  From the Ops Manager VM SSH to one of your diego cells.   
-8.  Type the cfdot command without sudo'ing to root.
-9.  Run the following command to discovery applications that are running within a selected diego cell.   
+#### [Step 7.] 
+From the Ops Manager VM SSH to one of your diego cells.   
+
+#### [Step 8.] 
+Type the cfdot command without sudo'ing to root.
+
+#### [Step 9.] 
+Run the following command to discovery applications that are running within a selected diego cell.   
 
 ```
 cfdot cell-state <guid-of-diego-cell> | jq -r '. | "\ndiego_cell:", .cell_id, "\n", "App-Guids:", .LRPs[].process_guid[0:36]'
 ```
 
 Example Output: 
+
 ```
 diego_cell/74ea458a-5c1c-445f-94e5-777b7810998f:~$ cfdot cell-state b8fc2b05-ce4c-4959-be81-944fdcdbd51f | jq -r '. | "\ndiego_cell:", .cell_id, "\n", "App-Guids:", .LRPs[].process_guid[0:36]'
 
@@ -169,13 +182,15 @@ App-Guids:
 Its kind of hard to tell what applications are running here with just their GUIDs, which is why we will be making a call to the CF API to determine what the actual names are.  
 
 
-10.  Open a separate terminal to run the following CF CLI command. 
+#### [Step 10.] 
+Open a separate terminal to run the following CF CLI command. 
 
 ```
 cf curl /v2/apps/<guid-of-app>/stats | grep name | uniq
 ```
 
 Example Output: 
+
 ```
 root@cypress-ops-manager:~# cf curl /v2/apps/1f70ffeb-a927-487e-8349-ade2ceb683d3/stats | grep name | uniq
          "name": "apps-manager-js-green",
@@ -184,7 +199,10 @@ root@cypress-ops-manager:~# cf curl /v2/apps/1f70ffeb-a927-487e-8349-ade2ceb683d
 
 Running cf CLI command for multiple guid's can also be automated as shown below:
 
-11.  Copy all the app guid to a file and you can run something like the below for loop against the file (replace the filename in the below loop)
+
+#### [Step 11.] 
+Copy all the app guid to a file and you can run something like the below for loop against the file (replace the filename in the below loop)
+
 
 ```
 for i in $(cat filename); do 
@@ -238,7 +256,9 @@ You can also use cfdot cli to determine how to find out where a particular app i
 
 From a diego cell run the following command to identify where the spring-music app is running based on its route.   
 
-12.  Set command as variable 
+#### [Step 12.] 
+Set command as variable 
+
 
 ```
 PGUIDS=$(cfdot desired-lrps | grep <APP_ROUTE> | jq -r '.process_guid')
@@ -246,12 +266,15 @@ PGUIDS=$(cfdot desired-lrps | grep <APP_ROUTE> | jq -r '.process_guid')
 
 Example Output: 
 
+
 ```
 diego_cell/74ea458a-5c1c-445f-94e5-777b7810998f:~$ echo $PGUIDS
 09901e52-1eb6-4f18-ac69-e56f4d04eb9e-05ee8942-b1dd-411d-b21e-e58864721187
 ```
 
-13.  Now that you have the GUID, you can run the following command to identify details around the application and where its running.   
+#### [Step 13.] 
+Now that you have the GUID, you can run the following command to identify details around the application and where its running.   
+
 
 ```
 cfdot actual-lrp-groups | grep "$PGUIDS" | jq
@@ -259,6 +282,7 @@ cfdot actual-lrp-groups | grep "$PGUIDS" | jq
 
 
 Example Output: 
+
 ```
 diego_cell/74ea458a-5c1c-445f-94e5-777b7810998f:~$ cfdot actual-lrp-groups | grep "$PGUIDS" | jq
 Command "actual-lrp-groups" is deprecated, use "actual-lrps" instead.
@@ -308,13 +332,15 @@ Command "actual-lrp-groups" is deprecated, use "actual-lrps" instead.
 
 You can also use cfdot to pull metrics regarding your diego cell resources.   
 
-14.  Run the following command to view resources of the current diego cell.  
+#### [Step 14.] 
+Run the following command to view resources of the current diego cell.  
 
 ```
 cfdot cell-states | jq '{cell_id, TotalResources, AvailableResources}'
 ```
 
 Example Output: 
+
 ```
 diego_cell/74ea458a-5c1c-445f-94e5-777b7810998f:~$ cfdot cell-states | jq '{cell_id, TotalResources, AvailableResources}'
 {
@@ -331,5 +357,7 @@ diego_cell/74ea458a-5c1c-445f-94e5-777b7810998f:~$ cfdot cell-states | jq '{cell
   }
 }
 
+
 ```
 
+----
