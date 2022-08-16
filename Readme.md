@@ -742,6 +742,7 @@ Let's start our investigation in bosh!
 
 Our Site reliability engineering team will investigate the issue by logging into their jump host so that they can connect to the bosh director to begin their troubleshooting.   
 
+<br/>
 
 
 1. Once logged into their jumphost and connected to bosh.  The engineer working the issue will issue the bosh deployments command to list all deployments across their foundation.   
