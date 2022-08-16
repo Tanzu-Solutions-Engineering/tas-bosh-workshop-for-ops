@@ -1186,6 +1186,7 @@ SSH into the `cloud_controller` VM
 - `bosh ssh <VM-Type>/<VM-GUID>  -d <cf-DeploymentName>`
 
 3.  Once logged in the SRE team member can run `sudo su` to gain root access and then run `monit summary` to list all processes.   
+
 ```
 $ monit summary
 The Monit daemon 5.2.5 uptime: 17h 22m 
@@ -1271,6 +1272,7 @@ cfdot cell-state <guid-of-diego-cell> | jq -r '. | "\ndiego_cell:", .cell_id, "\
 ```
 
 Example Output: 
+
 ```
 diego_cell/74ea458a-5c1c-445f-94e5-777b7810998f:~$ cfdot cell-state b8fc2b05-ce4c-4959-be81-944fdcdbd51f | jq -r '. | "\ndiego_cell:", .cell_id, "\n", "App-Guids:", .LRPs[].process_guid[0:36]'
 
@@ -1307,6 +1309,7 @@ cf curl /v2/apps/<guid-of-app>/stats | grep name | uniq
 ```
 
 Example Output: 
+
 ```
 root@cypress-ops-manager:~# cf curl /v2/apps/1f70ffeb-a927-487e-8349-ade2ceb683d3/stats | grep name | uniq
          "name": "apps-manager-js-green",
@@ -1315,7 +1318,9 @@ root@cypress-ops-manager:~# cf curl /v2/apps/1f70ffeb-a927-487e-8349-ade2ceb683d
 
 Running cf CLI command for multiple guid's can also be automated as shown below:
 
+
 11.  Copy all the app guid to a file and you can run something like the below for loop against the file (replace the filename in the below loop)
+
 
 ```
 for i in $(cat filename); do 
@@ -1371,11 +1376,13 @@ From a diego cell run the following command to identify where the spring-music a
 
 12.  Set command as variable 
 
+
 ```
 PGUIDS=$(cfdot desired-lrps | grep <APP_ROUTE> | jq -r '.process_guid')
 ```
 
 Example Output: 
+
 
 ```
 diego_cell/74ea458a-5c1c-445f-94e5-777b7810998f:~$ echo $PGUIDS
@@ -1384,12 +1391,14 @@ diego_cell/74ea458a-5c1c-445f-94e5-777b7810998f:~$ echo $PGUIDS
 
 13.  Now that you have the GUID, you can run the following command to identify details around the application and where its running.   
 
+
 ```
 cfdot actual-lrp-groups | grep "$PGUIDS" | jq
 ```
 
 
 Example Output: 
+
 ```
 diego_cell/74ea458a-5c1c-445f-94e5-777b7810998f:~$ cfdot actual-lrp-groups | grep "$PGUIDS" | jq
 Command "actual-lrp-groups" is deprecated, use "actual-lrps" instead.
@@ -1446,6 +1455,7 @@ cfdot cell-states | jq '{cell_id, TotalResources, AvailableResources}'
 ```
 
 Example Output: 
+
 ```
 diego_cell/74ea458a-5c1c-445f-94e5-777b7810998f:~$ cfdot cell-states | jq '{cell_id, TotalResources, AvailableResources}'
 {
@@ -1461,6 +1471,7 @@ diego_cell/74ea458a-5c1c-445f-94e5-777b7810998f:~$ cfdot cell-states | jq '{cell
     "Containers": 234
   }
 }
+
 
 ```
 
