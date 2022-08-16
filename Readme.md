@@ -815,7 +815,7 @@ Succeeded
 ```
 
 
-2.  Let's now issue the bosh vms command to list all VMs across our foundation.   
+1.  Let's now issue the bosh vms command to list all VMs across our foundation.   
 
 ```
 bosh vms
@@ -862,7 +862,7 @@ Succeeded
 From this view we can clearly see that there's an issue with several of our diego cells. 
 
 
-2. Now try running the bosh instances command along with the process flag to list out any processes that may be failing on the VMs
+1. Now try running the bosh instances command along with the process flag to list out any processes that may be failing on the VMs
 
 
 ```
@@ -881,26 +881,26 @@ bosh instances --ps |grep diego
 
 Notice the failing processes which could be potentially causing or a side effect of a larger issue that causing our VMs to fail.  Let's see if we can restart the failed/stopped processes to at least restore service then develop a root cause so that this issue doesn't happen again.   
 
-3.  Lets now SSH into each of the failing VMs to attempt to restart all required processes.   
+1.  Lets now SSH into each of the failing VMs to attempt to restart all required processes.   
 
 ```
 bosh ssh <VM-Type>/<VM-GUID>  -d <cf-DeploymentName>
 ```
 
-4.  Once logged in the SRE team member can su to root and then run monit summary to list all non-running processes that are required for TAS 
+1.  Once logged in the SRE team member can su to root and then run monit summary to list all non-running processes that are required for TAS 
 
 ```
 monit summary 
 ```
 
 
-5.  Now the engineer can start all monit processes that are stopped or start them individually using the command below.  
+1.  Now the engineer can start all monit processes that are stopped or start them individually using the command below.  
 
 ```
 monit start <process-name>
 ```
 
-6.  Now lets repeat steps 3 though 5 for every Diego Cell that has stopped processes.    
+1.  Now lets repeat steps 3 though 5 for every Diego Cell that has stopped processes.    
 
 <br/>
 
