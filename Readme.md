@@ -1085,6 +1085,7 @@ cat /var/vcap/sys/log/garden/garden.stderr.log
 
 
 ---
+
 ### Errand logs {: #errand-logs }
 
 Unlike regular job logs BOSH does not automatically redirect errand logs to `/var/vcap/sys/log/*` directory, though we are planning to do so in future.
@@ -1093,10 +1094,11 @@ Errand's stdout and stderr output will be shown by the CLI when it's smaller tha
 
 To save output from an errand VM:
 
-     In the errand run script, redirect the output to a log.
+In the errand run script, redirect the output to a log.
+     
 Step 11.  Using the CLI, run `bosh run-errand X` with the `--download-logs` option to download the logs.
 
-    By default, the CLI downloads the logs to your present working directory. Use the `--logs-dir destination_directory` option to change this directory.
+By default, the CLI downloads the logs to your present working directory. Use the `--logs-dir destination_directory` option to change this directory.
 
 ```shell
 bosh run-errand smoke_tests -d <deployment-name>  --download-logs --logs-dir ~/smoke-tests-logs.txt
