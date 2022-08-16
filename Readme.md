@@ -744,7 +744,7 @@ Our Site reliability engineering team will investigate the issue by logging into
 
 
 
-1.  Once logged into their jumphost and connected to bosh.  The engineer working the issue will issue the bosh deployments command to list all deployments across their foundation.   
+1. Once logged into their jumphost and connected to bosh.  The engineer working the issue will issue the bosh deployments command to list all deployments across their foundation.   
 
 ```
 bosh deployments
@@ -815,7 +815,7 @@ Succeeded
 ```
 
 
-1.  Let's now issue the bosh vms command to list all VMs across our foundation.   
+1. Let's now issue the bosh vms command to list all VMs across our foundation.   
 
 ```
 bosh vms
@@ -881,32 +881,33 @@ bosh instances --ps |grep diego
 
 Notice the failing processes which could be potentially causing or a side effect of a larger issue that causing our VMs to fail.  Let's see if we can restart the failed/stopped processes to at least restore service then develop a root cause so that this issue doesn't happen again.   
 
-1.  Lets now SSH into each of the failing VMs to attempt to restart all required processes.   
+1. Lets now SSH into each of the failing VMs to attempt to restart all required processes.   
 
 ```
 bosh ssh <VM-Type>/<VM-GUID>  -d <cf-DeploymentName>
 ```
 
-1.  Once logged in the SRE team member can su to root and then run monit summary to list all non-running processes that are required for TAS 
+1. Once logged in the SRE team member can su to root and then run monit summary to list all non-running processes that are required for TAS 
 
 ```
 monit summary 
 ```
 
 
-1.  Now the engineer can start all monit processes that are stopped or start them individually using the command below.  
+1. Now the engineer can start all monit processes that are stopped or start them individually using the command below.  
 
 ```
 monit start <process-name>
 ```
 
-1.  Now lets repeat steps 3 though 5 for every Diego Cell that has stopped processes.    
+1. Now lets repeat steps 3 though 5 for every Diego Cell that has stopped processes.    
 
 <br/>
 
+
 ### [Developer] 
 
-4.  Once all Diego cells have been remediated the developer can try pushing their application again.    
+4. Once all Diego cells have been remediated the developer can try pushing their application again.    
 
 ```
 cf push
@@ -920,13 +921,13 @@ After verifying all services have been restored we will need to take a look to s
 
 From the Ops Manager CLI lets take a look at our monit log file to see if there were any errors or changes logged to help us better understand what caused our processes to stop running.   
 
-7.  Change to the monit directory
+7. Change to the monit directory
 
 ```
 cd /var/vcap/monit
 ```
 
-8.  Now view monit the log file and grep for "stop service"
+8. Now view monit the log file and grep for "stop service"
 
 ```
 cat monit.log |grep "stop service"
@@ -963,7 +964,7 @@ Expected output:
 The following output shows me that a user who has admin access requeted to stop the above services.    
 
 
-9.  Let's pretend that this issue was not as obvious to determine.  In this case an engineer may be required to upload a log bundle to a support ticket.   Please see the following example to generate a log bundle for each affected VM.  
+9. Let's pretend that this issue was not as obvious to determine.  In this case an engineer may be required to upload a log bundle to a support ticket.   Please see the following example to generate a log bundle for each affected VM.  
 
 ```
 bosh logs -d  VM-Type/VM-GUID  [--dir DESTINATION_DIRECTORY]
