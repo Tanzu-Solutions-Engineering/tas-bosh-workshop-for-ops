@@ -1095,7 +1095,7 @@ To save output from an errand VM:
     By default, the CLI downloads the logs to your present working directory. Use the `--logs-dir destination_directory` option to change this directory.
 
 ```shell
-bosh run-errand smoke_tests --download-logs --logs-dir ~/smoke-tests-logs.txt
+bosh run-errand smoke_tests -d <deployment-name>  --download-logs --logs-dir ~/smoke-tests-logs.txt
 ```
 
 !!! note
