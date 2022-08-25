@@ -276,10 +276,10 @@ cf push
 
 After verifying all services have been restored we will need to take a look to see what exactly happened to determine root cause.   
 
-From the Ops Manager CLI lets take a look at our monit log file to see if there were any errors or changes logged to help us better understand what caused our processes to stop running.   
+From the same diego cell you were just logged into lets now take a look at our monit log file to see if there were any errors or changes logged to help us better understand what caused our processes to stop running.   
 
 #### [Step 7.] 
-Change to the monit directory
+From the problem diego cell change to the monit directory
 
 ```
 cd /var/vcap/monit
